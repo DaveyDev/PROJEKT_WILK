@@ -1,6 +1,7 @@
 package com.example.projekt_wilk.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projekt_wilk.ForumTopic;
+import com.example.projekt_wilk.ForumTopicActivity;
 import com.example.projekt_wilk.R;
 
 import java.util.ArrayList;
@@ -36,6 +38,13 @@ public class ForumTopicAdapter extends RecyclerView.Adapter<ForumTopicAdapter.Fo
         // Bind data to your ViewHolder
         ForumTopic forumTopic = forumTopicsList.get(position);
         holder.bind(forumTopic);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ForumTopicActivity.class);
+            intent.putExtra("topic", "test111");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
     }
 
     @Override
