@@ -51,6 +51,7 @@ public class TopicRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMo
     }
 
 
+
     //@Override
     //public int getItemCount() {
     //    return chatMessageList.size();
