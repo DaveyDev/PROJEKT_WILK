@@ -32,7 +32,7 @@ public class ForumTopicActivity extends AppCompatActivity {
     ImageButton backBtn, sendBtn;
     EditText messageInput;
     RecyclerView recyclerView;
-    String chatroomId;
+    String chatroomId, topic;
     ChatroomModel chatroomModel;
     Intent intent;
     TopicRecyclerAdapter adapter;
@@ -137,12 +137,13 @@ public class ForumTopicActivity extends AppCompatActivity {
                 chatroomModel = task.getResult().toObject(ChatroomModel.class);
                 if(chatroomModel == null){
 
-                    //first time chat (new chat)
+                    //first time topic (new topic)
                     chatroomModel = new ChatroomModel(
                             chatroomId,
                             Arrays.asList(FirebaseAuth.getInstance().getCurrentUser().getEmail(), intent.getStringExtra("topic")),
                             Timestamp.now(),
-                            ""
+                            "",
+                            topic
                     );
                     FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
                 }

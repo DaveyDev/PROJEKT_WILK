@@ -6,21 +6,24 @@ import com.google.firebase.Timestamp;
 import java.util.List;
 
 public class ChatroomModel {
-    String chatroomId;
-    List<String> userIds;
+    String chatroomId, topic;
+    List<String> userId;
     Timestamp lastMessageTimestamp;
     String lastMessageSenderId;
 
     public ChatroomModel() {
     }
 
-    public ChatroomModel(String chatroomId, List<String> userIds, Timestamp lastMessageTimestamp, String lastMessageSenderId) {
+    public ChatroomModel(String chatroomId, List<String> userId, Timestamp lastMessageTimestamp, String lastMessageSenderId, String topic) {
         this.chatroomId = chatroomId;
-        this.userIds = userIds;
+        this.userId = userId;
         this.lastMessageTimestamp = lastMessageTimestamp;
         this.lastMessageSenderId = lastMessageSenderId;
+        this.topic = topic;
     }
 
+    public String getTopic() {return topic; }
+    public void setTopic() {this.topic = topic; }
     public String getChatroomId() {
         return chatroomId;
     }
@@ -29,12 +32,12 @@ public class ChatroomModel {
         this.chatroomId = chatroomId;
     }
 
-    public List<String> getUserIds() {
-        return userIds;
+    public List<String> getUserId() {
+        return userId;
     }
 
-    public void setUserIds(List<String> userIds) {
-        this.userIds = userIds;
+    public void setUserId(List<String> userId) {
+        this.userId = userId;
     }
 
     public Timestamp getLastMessageTimestamp() {
