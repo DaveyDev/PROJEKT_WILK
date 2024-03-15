@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ForumFragment extends Fragment {
     private RecyclerView recyclerView;
     private ForumTopicAdapter adapter;
+    private String chatroomId;
     private ArrayList<ForumTopic> forumTopicsList;
 
     @Override
@@ -23,8 +24,11 @@ public class ForumFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_forum, container, false);
         recyclerView = view.findViewById(R.id.forumRecycler);
         setupRecyclerView();
+
+
         return view;
     }
+
 
     private void setupRecyclerView() {
         // Assuming you have forum topics data stored in an ArrayList<ForumTopic> called forumTopicsList
@@ -35,7 +39,7 @@ public class ForumFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Pass the forumTopicsList to the adapter constructor
-        adapter = new ForumTopicAdapter(getContext(), forumTopicsList);
+        adapter = new ForumTopicAdapter(getContext(), forumTopicsList, chatroomId);
         recyclerView.setAdapter(adapter);
     }
 

@@ -3,18 +3,16 @@ package com.example.projekt_wilk.model;
 
 import com.google.firebase.Timestamp;
 
-import java.util.List;
-
 public class ChatroomModel {
     String chatroomId, topic;
-    List<String> userId;
+    String userId;
     Timestamp lastMessageTimestamp;
     String lastMessageSenderId;
 
     public ChatroomModel() {
     }
 
-    public ChatroomModel(String chatroomId, List<String> userId, Timestamp lastMessageTimestamp, String lastMessageSenderId, String topic) {
+    public ChatroomModel(String chatroomId, String userId, Timestamp lastMessageTimestamp, String lastMessageSenderId, String topic) {
         this.chatroomId = chatroomId;
         this.userId = userId;
         this.lastMessageTimestamp = lastMessageTimestamp;
@@ -32,13 +30,11 @@ public class ChatroomModel {
         this.chatroomId = chatroomId;
     }
 
-    public List<String> getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(List<String> userId) {
-        this.userId = userId;
-    }
+    public void setUserId(String userId) { this.userId = userId; }
 
     public Timestamp getLastMessageTimestamp() {
         return lastMessageTimestamp;

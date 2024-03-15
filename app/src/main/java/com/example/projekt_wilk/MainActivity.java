@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     ForumTopicAdapter adapter;
     RecyclerView recyclerView;
+    String chatroomId;
     ArrayList<ForumTopic> forumTopicsList = new ArrayList<>();
 
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 // Initialize the adapter with forumTopicsList
-        adapter = new ForumTopicAdapter(this, forumTopicsList);
+        adapter = new ForumTopicAdapter(this, forumTopicsList, chatroomId);
         recyclerView.setAdapter(adapter);
 
 

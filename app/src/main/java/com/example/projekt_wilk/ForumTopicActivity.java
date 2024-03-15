@@ -23,8 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;
 
-import java.util.Arrays;
-
 public class ForumTopicActivity extends AppCompatActivity {
 
     TextView userNameAndSurname;
@@ -56,7 +54,7 @@ public class ForumTopicActivity extends AppCompatActivity {
 
         intent = getIntent();
         if (intent != null) {
-            String userName = intent.getStringExtra("topic");
+            chatroomId = intent.getStringExtra("chatroomId");
         }
 
 
@@ -75,7 +73,7 @@ public class ForumTopicActivity extends AppCompatActivity {
             userNameAndSurname.setText("intent was null");
         }
 */
-        chatroomId = intent.getStringExtra("topic");
+        chatroomId = intent.getStringExtra("chatroomId");
 
         sendBtn.setOnClickListener((v ->{
             String message = messageInput.getText().toString().trim();
@@ -84,7 +82,7 @@ public class ForumTopicActivity extends AppCompatActivity {
             sendMesssageToUser(message);
         }));
 
-        getOrCreateChatroomModel();
+        getOrCreateChatroomModel(chatroomId);
         setupChatRecyclerView();
     }
 
@@ -130,17 +128,18 @@ public class ForumTopicActivity extends AppCompatActivity {
                 });
 
     }
-    void getOrCreateChatroomModel(){
+    void getOrCreateChatroomModel(String chatroomId){
 
         FirebaseUtil.getChatroomReference(chatroomId).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
+
                 chatroomModel = task.getResult().toObject(ChatroomModel.class);
                 if(chatroomModel == null){
 
                     //first time topic (new topic)
                     chatroomModel = new ChatroomModel(
                             chatroomId,
-                            Arrays.asList(FirebaseAuth.getInstance().getCurrentUser().getEmail(), intent.getStringExtra("topic")),
+                            FirebaseAuth.getInstance().getCurrentUser().getEmail(),
                             Timestamp.now(),
                             "",
                             topic
