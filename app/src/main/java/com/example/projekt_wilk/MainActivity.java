@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton accountButton;
+    ImageButton accountButton, addPostBtn;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference forumTopicsRef = db.collection("ForumData");
 
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         accountButton = findViewById(R.id.accountButton);
+        addPostBtn = findViewById(R.id.addPostBtn);
         recyclerView = findViewById(R.id.topicList);
 
         recyclerView.setHasFixedSize(true);
@@ -107,6 +108,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AccountPage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        addPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AddPostActivity.class);
                 startActivity(intent);
                 finish();
             }

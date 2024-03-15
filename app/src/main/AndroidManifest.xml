@@ -18,6 +18,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
+            android:name=".AddPostActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
             android:name=".Register"
             android:exported="false"
             android:screenOrientation="portrait"
