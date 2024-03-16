@@ -21,7 +21,7 @@ public class ForumTopicAdapter extends RecyclerView.Adapter<ForumTopicAdapter.Fo
     private ArrayList<ForumTopic> forumTopicsList;
     private String chatroomId;
 
-    public ForumTopicAdapter(Context context, ArrayList<ForumTopic> forumTopicsList, String chatroomId) {
+    public ForumTopicAdapter(Context context, ArrayList<ForumTopic> forumTopicsList) {
         this.context = context;
         this.forumTopicsList = forumTopicsList;
         this.chatroomId = chatroomId;
@@ -42,8 +42,12 @@ public class ForumTopicAdapter extends RecyclerView.Adapter<ForumTopicAdapter.Fo
         holder.bind(forumTopic);
 
         holder.itemView.setOnClickListener(v -> {
+
+            ForumTopic clickedTopic = forumTopicsList.get(position);
+            String chatroomId = clickedTopic.getChatroomId();
             Intent intent = new Intent(context, ForumTopicActivity.class);
-            intent.putExtra("chatroomId", "chatroomId");
+
+            intent.putExtra("chatroomId", chatroomId);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });

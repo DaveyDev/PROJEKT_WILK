@@ -80,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
                         // Assuming ForumTopic class has constructor that takes topic and description as parameters
                         ForumTopic forumTopic = new ForumTopic(
                                 document.getString("topic"),
-                                document.getString("description")
+                                document.getString("description"),
+                                document.getString("chatroomId")
                         );
                         forumTopicsList.add(forumTopic);
                     }
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 // Initialize the adapter with forumTopicsList
-        adapter = new ForumTopicAdapter(this, forumTopicsList, chatroomId);
+        adapter = new ForumTopicAdapter(this, forumTopicsList);
         recyclerView.setAdapter(adapter);
 
 

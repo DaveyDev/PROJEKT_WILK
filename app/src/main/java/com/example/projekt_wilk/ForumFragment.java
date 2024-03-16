@@ -39,7 +39,7 @@ public class ForumFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Pass the forumTopicsList to the adapter constructor
-        adapter = new ForumTopicAdapter(getContext(), forumTopicsList, chatroomId);
+        adapter = new ForumTopicAdapter(getContext(), forumTopicsList);
         recyclerView.setAdapter(adapter);
     }
 
