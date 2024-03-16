@@ -46,6 +46,7 @@ public class TopicRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMo
             holder.leftChatLayout.setVisibility(View.VISIBLE);
            // holder.rightChatLayout.setVisibility(View.GONE);
             holder.leftChatTv.setText(model.getMessage());
+            holder.senderId.setText(model.getSenderId());
        // }
 
     }
@@ -63,7 +64,7 @@ public class TopicRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMo
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout leftChatLayout, rightChatLayout;
-        TextView leftChatTv, rightChatTv;
+        TextView leftChatTv, senderId;
 
         public ChatViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +72,7 @@ public class TopicRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMo
             leftChatLayout = itemView.findViewById(R.id.left_chat_layout);
             //rightChatLayout = itemView.findViewById(R.id.right_chat_layout);
             leftChatTv = itemView.findViewById(R.id.left_chat_tv);
+            senderId = itemView.findViewById(R.id.chat_tv);
             //rightChatTv = itemView.findViewById(R.id.right_chat_tv);
 
 

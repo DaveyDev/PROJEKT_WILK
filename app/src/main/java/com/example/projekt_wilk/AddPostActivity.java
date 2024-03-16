@@ -7,11 +7,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.projekt_wilk.model.ChatMessageModel;
 import com.example.projekt_wilk.model.ChatroomModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 
 
 public class AddPostActivity extends AppCompatActivity {
@@ -54,10 +59,32 @@ public class AddPostActivity extends AppCompatActivity {
                 chatroomId = titleTxt.getText().toString();
                 CreateChatroomModel();
                 Log.d("title", chatroomId);
+                String firstPostMessage = descriptionTxt.getText().toString();
+                setFirstPost(firstPostMessage);
             }
         });
 
 
+
+    }
+    void setFirstPost(String message){
+
+
+        chatroomModel.setLastMessageTimestamp(Timestamp.now());
+        chatroomModel.setLastMessageSenderId(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
+
+
+        ChatMessageModel chatMessageModel = new ChatMessageModel(message, FirebaseAuth.getInstance().getCurrentUser().getEmail(), Timestamp.now());
+        FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
 
     }
     void CreateChatroomModel() {

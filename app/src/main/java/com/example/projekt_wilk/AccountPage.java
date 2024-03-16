@@ -2,16 +2,11 @@ package com.example.projekt_wilk;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,13 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,9 +35,6 @@ public class AccountPage extends AppCompatActivity {
     ImageButton backButton;
     EditText emailText, usernameText;
 
-    ImageView profilePic;
-
-    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +49,10 @@ public class AccountPage extends AppCompatActivity {
         user = auth.getCurrentUser();
         logout = findViewById(R.id.logout);
         backButton = findViewById(R.id.backButton);
-        //chatPage = findViewById(R.id.chat);
-        //accountPage = findViewById(R.id.home);
         emailText = findViewById(R.id.emailEditText);
         usernameText = findViewById(R.id.nameEditText);
         saveAccountData = findViewById(R.id.saveAccountData);
-        profilePic = findViewById(R.id.profilePic);
+
 
         if (user == null) {
             Intent intent = new Intent(getApplicationContext(), Login.class);
@@ -108,7 +92,7 @@ public class AccountPage extends AppCompatActivity {
         else {
             emailText.setText(user.getEmail());
             setAccountData();
-            loadProfilePicture();
+            //loadProfilePicture();
 
         }
 
@@ -119,86 +103,11 @@ public class AccountPage extends AppCompatActivity {
             }
         });
 
-        profilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open the image picker when the ImageButton is clicked
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, PICK_IMAGE_REQUEST);
-            }
-        });
-
-    }
-
-    void loadProfilePicture(){
-
-        storageReference = FirebaseStorage.getInstance().getReference("images/"+ emailText.getText() +"/profilePicture.jpg");
-
-        try {
-            File localfile = File.createTempFile("tempfile", ".jpg");
-            storageReference.getFile(localfile)
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-
-
-                            Bitmap bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
-                            profilePic.setImageBitmap(bitmap);
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-
-
-                            //Toast.makeText(AccountPage.this, "Failed to retrieve profile picture", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            // Get the selected image URI
-            Uri selectedImageUri = data.getData();
-
-            // Upload the selected image to Firebase Storage
-            uploadImageToFirebase(selectedImageUri);
-        }
-    }
-    private void uploadImageToFirebase(Uri imageUri) {
-        // Assuming userId is the unique identifier for the user
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("images/" + emailText.getText() + "/profilePicture.jpg");
-
-        // Upload the image to Firebase Storage
-        storageRef.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Image uploaded successfully
-                        // Now, you can get the download URL and store it in Firestore or perform other actions
-                        storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String downloadUrl = uri.toString();
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Handle unsuccessful upload
-                    }
-                });
 
 
     }
+
+
     private void setAccountData(){ //do stuff
 
         db.collection("UserData").document(user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -221,7 +130,7 @@ public class AccountPage extends AppCompatActivity {
             }
         });
     }
-    private static final int PICK_IMAGE_REQUEST = 1;
+  
 
     private void updateAccountData(){ //updates Account Data (like name, surname etc.)
 

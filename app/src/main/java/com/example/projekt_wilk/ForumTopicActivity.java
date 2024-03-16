@@ -111,7 +111,7 @@ public class ForumTopicActivity extends AppCompatActivity {
     void sendMesssageToUser(String message){
 
 
-        chatroomModel.setLastMessageTimestamp(Timestamp.now());
+        //chatroomModel.setLastMessageTimestamp(Timestamp.now());
         chatroomModel.setLastMessageSenderId(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
 

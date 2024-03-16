@@ -14,29 +14,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/saveAccountData" />
 
-    <ImageView
-        android:id="@+id/profilePic"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginTop="75dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:mipmap/sym_def_app_icon"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="200dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePic" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/emailtext"
